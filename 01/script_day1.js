@@ -18,6 +18,7 @@ fs.readFile("input_day1.txt", "utf-8", (err, data) => {
   console.log(leftList);
   console.log(rightList);
 
+  // Part One
   const absoluteDifference = leftList.map((left, index) => {
     const right = rightList[index];
     return Math.abs(Number(left) - Number(right));
@@ -30,4 +31,25 @@ fs.readFile("input_day1.txt", "utf-8", (err, data) => {
   );
 
   console.log(sumOfAbsoluteDifferences);
+
+  // Part Two
+
+  function calculateSimilarityScore(leftList, rightList) {
+    const rightCount = {};
+    for (const item of rightList) {
+      rightCount[item] = (rightCount[item] || 0) + 1;
+    }
+
+    let similarityScore = 0;
+    for (const number of leftList) {
+      similarityScore += number * (rightCount[number] || 0);
+    }
+
+    return similarityScore;
+  }
+
+  // Calculate the score
+  const score = calculateSimilarityScore(leftList, rightList);
+
+  console.log("Total Similarity Score:", score);
 });
